@@ -1,15 +1,9 @@
-import React from 'React';
+import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Key from '@material-ui/icons/VpnKey';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -19,32 +13,53 @@ export class ContactPage extends React.Component {
 
 	state = {
 		messageopen: false,
-		messageInfo: {},
-	}
+		firstName: '',
+		lastName: '',
+		email: '',
+		location: '',
+		message: '',
+		messageError: false,
+		successMessage: '',
+	};
 
-	giveSuccessMessage = (message) => {
+	giveSuccessMessage = () => {
 		let newmsg = {
-			message,
+			message: 'sent successful',
 			key: new Date().getTime()
 		};
 
 		this.setState({
 			messageopen: true,
-			messageInfo: newmsg
+			successMessage: newmsg
 
 		});
 
 	};
 
+	clear = () => {
+		// return the state to initial
+		this.setState({
+			firstName: '',
+			lastName: '',
+			email: '',
+			location: '',
+			message: ''
+		})
+	};
+
 	onSubmit = () => {
-
-		this.giveSuccessMessage('send successfully');
-
-		//this.props.startAddLogin(user);
-
-		// this.props.history.push('/');
+		this.state.message === '' ? (
+			this.setState(() => this.state.messageError=true)
+		)
+		:
+		(
+			this.clear(),
+			this.giveSuccessMessage()
+		);
 
 	};
+
+
 	handleClose = (event, reason) => {
 		if (reason === 'clickaway') {
 			return;
@@ -54,7 +69,7 @@ export class ContactPage extends React.Component {
 
 	render() {
 
-		const {message, key} = this.state.messageInfo;
+		const {message, key} = this.state.successMessage;
 
 
 		return (
@@ -89,26 +104,31 @@ export class ContactPage extends React.Component {
 					]}
 				/>
 				<Grid container spacing={24} justify="center">
-					<Grid item xs={12} md={10} style={{marginTop: 10}}>
+					<Grid item xs={12} md={10} style={{marginBottom: 20}}>
 						<Paper className="contact-page-paper"><Typography variant="display1" gutterBottom
-																		  style={{padding: 15}}>
+																		  style={{padding: 15, marginTop: 15}}>
 							Contact us
 						</Typography>
 							<Grid container spacing={24}>
 								<Grid item xs={12} lg={6} md={6} style={{marginTop: 10}}>
 									<TextField
-										id="Firstname"
+										value={this.state.firstName}
+										onChange={e => this.setState({firstName: e.target.value})}
+										id="First Name"
 										label="First Name"
 										placeholder="First Name"
 										className="contact-page-name-list-field"
 										margin="normal"
+										autoFocus={true}
 									/>
 								</Grid>
 
 								<Grid item xs={12} lg={6} md={6} style={{marginTop: 10}}>
 									<TextField
-										id="LastName"
-										label="LastName"
+										value={this.state.lastName}
+										onChange={e => this.setState({lastName: e.target.value})}
+										id="Last Name"
+										label="Last Name"
 										placeholder="Last Name"
 										className="contact-page-name-list-field"
 										margin="normal"
@@ -117,9 +137,11 @@ export class ContactPage extends React.Component {
 
 								<Grid item xs={12} lg={6} md={6} style={{marginTop: 10}}>
 									<TextField
-										id="Firstname"
+										value={this.state.email}
+										onChange={e => this.setState({email: e.target.value})}
+										id="headystick@mailinator.com"
 										label="Email"
-										placeholder="Email address"
+										placeholder="example@example.com"
 										className="contact-page-name-list-field"
 										margin="normal"
 									/>
@@ -128,24 +150,36 @@ export class ContactPage extends React.Component {
 
 								<Grid item xs={12} lg={6} md={6} style={{marginTop: 10}}>
 									<TextField
-										id="Firstname"
+										value={this.state.location}
+										onChange={e => this.setState({location: e.target.value})}
+										id="Location"
 										label="Location"
-										placeholder="Location"
+										placeholder={"123 Example Rd \nArnold, MD 21012"}
 										className="contact-page-name-list-field"
 										margin="normal"
+										multiline
+										rows="2"
 									/>
 								</Grid>
 
 
 								<Grid item xs={12} lg={12} md={12} style={{marginTop: 10}}>
 									<TextField
-										id="Firstname"
+										value={this.state.message}
+										onChange={e =>
+											this.setState({messageError: false,
+														   message: e.target.value,
+														   })}
+										id="Message"
 										label="Message"
-										multiline
-										rows="2"
 										placeholder="Message"
-										className="contact-page-name-list-field"
+										multiline
+										rows="7"
+										className="contact-page-message-list-field"
 										margin="normal"
+										required={true}
+										error={this.state.messageError}
+										helperText={this.state.messageError ? 'This field is required!' : ''}
 									/>
 								</Grid>
 								<Grid item xs={12} lg={12} md={12} style={{marginTop: 10}}>

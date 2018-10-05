@@ -8,6 +8,7 @@ import './styles/styles.css';
 import {theme} from './theme/theme';
 import configureStore from './store/config/configureStore';
 import {login, logout} from './store/actions/auth';
+import Footer from './components/Footer'
 
 
 const store = configureStore();
@@ -23,9 +24,5 @@ const App = () => (
 		</MuiThemeProvider>
 	</Provider>
 );
-
-
-store.dispatch(logout());
-
 
 render(<App/>, document.getElementById('app'));

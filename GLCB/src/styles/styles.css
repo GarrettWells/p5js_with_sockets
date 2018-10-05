@@ -25,18 +25,21 @@
 a {
 	text-decoration: none;
 	color: white;
-	opacity: 1;
+	text-shadow:
+			-1px -1px 0 #000,
+			1px -1px 0 #000,
+			-1px 1px 0 #000,
+			1px 1px 0 #000;
 }
 
 a:hover {
 	text-decoration: none;
 	color: hotpink;
-	opacity: 1;
 }
 
 
 .appbarbutton {
-	color: white;
+	color: purple;
 	opacity: 1;
 }
 
@@ -44,10 +47,28 @@ a:hover {
 
 .landingPagebodyComponent {
 	background-image: url('../assets/img/Placeholder1.jpg');
+	background-size: cover;
 	min-height: 85vh;
+	margin: 0px;
 	/*text-align: center;*/
 }
 
+.contact-page-wrapper{
+	flex-grow:0;
+	overflow: hidden;
+}
+
+.contact-page-paper{
+	text-align: center;
+}
+
+.contact-page-name-list-field{
+	width:300px;
+}
+
+.contact-page-message-list-field{
+	width:600px;
+}
 
 
 
@@ -62,6 +83,7 @@ a:hover {
 
 
 /* Media queries for desktop */
+/*
 @media only screen and (min-width: 768px) {
 
 	.contact-page-name-list-field {
@@ -89,8 +111,9 @@ a:hover {
 	}
 
 }
-
+*/
 /* Media query for tablets */
+/*
 @media only screen and (min-width: 600px) {
 
 	.contact-page-name-list-field {
@@ -117,4 +140,4 @@ a:hover {
 
 	}
 
-}
+}*/

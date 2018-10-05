@@ -6,14 +6,14 @@ export const theme = createMuiTheme({
 
 		type: 'light',
 		primary: {
-			main: '#1565c0' // customise your main color here
+			main: '#a346ce' // customise your main color here
 		},
 		secondary: {main: '#673ab7'},
 
 		error: {main: '#ca0909'},
 
-		sand: {main: '#F4DECB'},
-		shell: {main: '#F8EEE7'},
+		sand: {main: '#33a333'},
+		shell: {main: '#ffff33'},
 		status: {
 			danger: '#b71c1c'
 		},
@@ -25,13 +25,5 @@ export const theme = createMuiTheme({
 		// two indexes within its tonal palette.
 		// E.g., shift from Red 500 to Red 300 or Red 700.
 		tonalOffset: 0.2,
-
-		overrides: {
-			appBar: {
-				type: 'light',
-				color: "#000000",
-				primary: {main: "#000000"},
-			}
-		},
 	}
 });

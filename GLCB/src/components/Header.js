@@ -2,58 +2,64 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid'
 
-import {connect} from 'react-redux';
-import Drawer from '@material-ui/core/Drawer';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import Logo from '../assets/img/Logo_fixed.png'
-import Divider from '@material-ui/core/Divider';
-import Paper from '@material-ui/core/Paper';
-import '../styles/styles.css';
-import {theme} from '../theme/theme.js'
-import {MuiThemeProvider} from '@material-ui/core/styles'
-import {withStyles} from '@material-ui/core/styles'
+import Logo from '../assets/img/Logo.png'
+import '~/src/styles/styles.css';
+import { cyan } from '@material-ui/core/colors'
+import { withStyles } from '@material-ui/core/styles'
 
-
-import {Link} from 'react-router-dom';
-import {logout} from '../store/actions/auth';
-import {NavLink} from 'react-router-dom';
-
+const style = {
+	Logo: {
+		color: 'inherit',
+		opacity: 1,
+	},
+	Button: {
+		color: 'inherit',
+		opacity: 1,
+		backgroundColor: 'rgb(0, 0, 0, .3)'
+	},
+	AppBar: {
+		height: 120,
+	},
+};
 
 class Header extends React.Component {
 	render() {
+		const { classes, position } = this.props;
+		const style = (position=='fixed') ? ({backgroundColor: 'rgba(0, 0, 0, .3'}) : ({backgroundColor: cyan[100]});
+
 		return (
 			<div>
-				<MuiThemeProvider theme={theme}>
-					<AppBar position="fixed">
-						<Toolbar>  {/*create the blue bar across the top*/}
-							<Grid container justify={"flex-start"} spacing={24}>
-								<Grid item xs>
-									<Button align="right">
-										<Link to={"/Home"}>
-											Greg Lauer Custom Builders
-										</Link>
-									</Button>
-								</Grid>
+				<AppBar className={classes.AppBar} style={style} position={position || 'fixed'}>
+					<Toolbar>  {/*create the blue bar across the top*/}
+						<Grid container justify={"flex-start"} spacing={24}>
+							<Grid item xs>
+								<Button className={classes.Logo} href="/" size="small">
+									<img alt="Greg Lauer Custom Builders" src={Logo}/>
+								</Button>
 							</Grid>
-							<Grid container direction={"row"} justify={"space-between"} alignItems={"center"}>
-								<Grid item><Button className="appbarbutton" align="right" variant={"outlined"}>
-									<Link to="/albums">Previous Work</Link></Button></Grid>
-								<Grid item><Button className="appbarbutton" align="right" variant={"outlined"}>
-									<Link to="/about">About us</Link></Button></Grid>
-								<Grid item><Button className="appbarbutton" align="right" variant={"outlined"}>
-									<Link to="/contact">Contact us</Link></Button></Grid>
-							</Grid>
-						</Toolbar>
-					</AppBar>
-				</MuiThemeProvider>
+						</Grid>
+						<Grid container direction={"row"} justify={"center"} alignItems={"center"}>
+							<Grid item>
+								<Button className={classes.Button} href="/albums" align="right" variant={"flat"}>
+									Previous Work
+								</Button></Grid>
+							<Grid item>
+								<Button className={classes.Button} href="/about" align="right" variant={"flat"}>
+									About us
+								</Button></Grid>
+							<Grid item>
+								<Button className={classes.Button} href="/contact" align="right" variant={"flat"}>
+									Contact us
+								</Button></Grid>
+						</Grid>
+					</Toolbar>
+				</AppBar>
 			</div>
 
 		);
 	};
 }
 
-export default withStyles(theme.appBar)(Header);
+export default withStyles(style)(Header);
